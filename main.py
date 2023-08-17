@@ -28,7 +28,6 @@ class Game():
         self.player.draw()
 
         for bullet in self.bullets:
-
             bullet.draw()
 
         self.screen.blit(self.debug(), (20, 1000))
@@ -56,7 +55,6 @@ class Game():
             self.player.update()
             for bullet in self.bullets:
                 bullet.update()
-
     def debug(self):
         font = pygame.font.SysFont(None, 24)
         text = (
@@ -64,7 +62,7 @@ class Game():
                 'P_Y: ', self.player.y,
                 #self.map.curr_map[int(self.player.y / 32)][int(abs(self.player.x) / 32)],
                 #'T_X: ', round(self.player.x / 32),
-                #'T_Y: ', round(self.player.y / 32),
+                #'T_Y: ', round(self.player.y / 32),s
                 )
 
         img = font.render(str(text), True, 'white')

@@ -27,8 +27,11 @@ class Bullet:
 
     def check_collision(self):
         map_x, map_y = int(self.x / 32), int(self.y / 32)
+        if map_x == (59 or 0) or map_y == (33 or 0):
+            self.game.bullets.remove(self)
         #print(map_x, map_y)
         if self.game.map.curr_map[map_y][map_x] != -1:
+            print(map_y, map_x)
             return True
         return False
 

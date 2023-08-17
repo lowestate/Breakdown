@@ -52,21 +52,25 @@ class Player:
             self.y = 1070
             self.is_bottom = False
             self.game.map.get_map()
+            self.game.bullets = []
 
         if self.y > 1070:
             self.y = 0
             self.is_bottom = True
             self.game.map.get_map()
+            self.game.bullets = []
 
         if self.x > 1910:
             self.x = 0
             self.is_left = False
             self.game.map.get_map()
+            self.game.bullets = []
 
         if self.x < 0:
             self.x = 1910
             self.is_left = True
             self.game.map.get_map()
+            self.game.bullets = []
 
     def shoot(self):
         if time.time() - self.start > BULLET_CD:
