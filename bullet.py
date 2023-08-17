@@ -33,4 +33,4 @@ class Bullet:
         return False
 
     def draw(self):
-        pygame.draw.circle(self.game.map.curr_bg, 'red', (self.x, self.y), 5)
+        pygame.draw.circle(self.game.screen, 'red', (int(self.x), int(self.y)), 5)

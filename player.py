@@ -51,18 +51,22 @@ class Player:
         if self.y < 0:
             self.y = 1070
             self.is_bottom = False
+            self.game.map.get_map()
 
         if self.y > 1070:
             self.y = 0
             self.is_bottom = True
+            self.game.map.get_map()
 
         if self.x > 1910:
             self.x = 0
             self.is_left = False
+            self.game.map.get_map()
 
         if self.x < 0:
             self.x = 1910
             self.is_left = True
+            self.game.map.get_map()
 
     def shoot(self):
         if time.time() - self.start > BULLET_CD:
@@ -71,11 +75,13 @@ class Player:
             self.start = time.time()
 
     def draw(self):
+
         pygame.draw.circle(self.game.screen, 'green', (self.x, self.y), 15)
 
     def update(self):
-        self.move()
         self.borders_check()
+        self.move()
+
         if pygame.mouse.get_pressed()[0]:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             delta_x = mouse_x - self.x

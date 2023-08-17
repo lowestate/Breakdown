@@ -13,7 +13,7 @@ class Game():
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 
         self.clock = pygame.time.Clock()
-        self.delta_time = 0.001
+        self.delta_time = 1
 
         self.bullets = []
         self.start = 0
@@ -24,6 +24,7 @@ class Game():
         self.map = Map(self, self.player)
 
     def draw(self):
+
         self.player.draw()
 
         for bullet in self.bullets:
@@ -37,10 +38,9 @@ class Game():
         self.player.update()
 
         pygame.display.flip()
-
+        self.map.get_map()
         self.delta_time = self.clock.tick(FPS)
         pygame.display.set_caption(f'{self.clock.get_fps() :.1f}')
-        self.map.get_map()
 
     def check_events(self):
         for event in pygame.event.get():
