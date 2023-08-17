@@ -64,11 +64,11 @@ class Player:
             self.x = 1910
             self.is_left = True
 
-    # def shoot(self):
-    #     if time.time() - self.start > BULLET_CD:
-    #         bullet = Bullet(self.game, self.x, self.y, self.angle)
-    #         self.game.bullets.append(bullet)
-    #         self.start = time.time()
+    def shoot(self):
+        if time.time() - self.start > BULLET_CD:
+            bullet = Bullet(self.game, self.x, self.y, self.angle)
+            self.game.bullets.append(bullet)
+            self.start = time.time()
 
     def draw(self):
         pygame.draw.circle(self.game.screen, 'green', (self.x, self.y), 15)
@@ -78,8 +78,8 @@ class Player:
         self.borders_check()
         if pygame.mouse.get_pressed()[0]:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            delta_x = mouse_x - self.x * 100
-            delta_y = mouse_y - self.y * 100
+            delta_x = mouse_x - self.x
+            delta_y = mouse_y - self.y
             self.angle = math.atan2(delta_y, delta_x)
             self.angle %= math.tau
-            # self.shoot()
+            self.shoot()

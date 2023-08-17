@@ -1,6 +1,7 @@
 import pygame
 import math
 from consts import *
+import time
 
 class Bullet:
     def __init__(self, game, x, y, angle):
@@ -11,6 +12,9 @@ class Bullet:
         self.angle = angle
         self.speed = BULLET_SPEED
         self.cd = BULLET_CD
+
+        self.start = time.time()
+
 
     def update(self):
         dx = self.speed * math.cos(self.angle) * self.game.delta_time
@@ -24,9 +28,9 @@ class Bullet:
     def check_collision(self):
         map_x, map_y = int(self.x / 32), int(self.y / 32)
         #print(map_x, map_y)
-        if self.game.map.curr_map[map_y][map_x] != '-1':
+        if self.game.map.curr_map[map_y][map_x] != -1:
             return True
         return False
 
     def draw(self):
-        pygame.draw.circle(self.game.screen, 'red', (int(self.x), int(self.y)), 4)
+        pygame.draw.circle(self.game.map.curr_bg, 'red', (self.x, self.y), 5)

@@ -158,6 +158,7 @@ class Map:
         self.bg_top_right = pygame.image.load('graphics/top right.png')
 
         self.curr_map = []
+        self.curr_bg = self.bg_bottom_left
 
         self.is_bottom = True
         self.is_left = True
@@ -170,19 +171,23 @@ class Map:
                 self.game.screen.blit(self.bg_bottom_left, self.bg_bottom_left.get_rect())
                 tmx_file = "graphics/bottom-left.tmx"
                 self.curr_map = map_bl
+                self.curr_bg = self.bg_bottom_left
             else:
                 self.game.screen.blit(self.bg_bottom_right, self.bg_bottom_right.get_rect())
                 tmx_file = "graphics/bottom-right.tmx"
                 self.curr_map = map_br
+                self.curr_bg = self.bg_bottom_right
         else:
             if self.player.is_left:
                 self.game.screen.blit(self.bg_top_left, self.bg_top_left.get_rect())
                 tmx_file = "graphics/top-left.tmx"
                 self.curr_map = map_tl
+                self.curr_bg = self.bg_top_left
             else:
                 self.game.screen.blit(self.bg_top_right, self.bg_top_right.get_rect())
                 tmx_file = "graphics/top-right.tmx"
                 self.curr_map = map_tr
+                self.curr_bg = self.bg_top_right
 
         tmx_data = pytmx.load_pygame(tmx_file)
         for layer in tmx_data.visible_layers:
