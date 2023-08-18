@@ -87,8 +87,9 @@ class Player:
             self.start = time.time()
 
     def draw(self):
+        self.game.screen.blit(self.player_sprite, self.player_hitbox.topleft)
         #self.game.screen.blit(self.player_sprite, (self.x, self.y))
-        pygame.draw.rect(self.game.screen, 'green', (self.x, self.y, 150, 90), 3)
+        #pygame.draw.rect(self.game.screen, 'green', (self.x, self.y, 150, 90), 3)
 
     def update(self):
         self.borders_check()
@@ -102,8 +103,6 @@ class Player:
         self.rot_angle = math.atan2(dy, dx)
         self.player_sprite = pygame.transform.rotate(self.player_sprite_copy, math.degrees(-self.rot_angle))
         self.player_hitbox = self.player_sprite.get_rect(center=(self.x, self.y))
-
-        self.game.screen.blit(self.player_sprite, self.player_hitbox.topleft)
 
         if pygame.mouse.get_pressed()[0]:
             mouse_x, mouse_y = pygame.mouse.get_pos()
