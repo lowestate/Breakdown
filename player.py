@@ -27,28 +27,24 @@ class Player:
 
     def move(self):
         keys = pygame.key.get_pressed()
-        # print(self.game.map.curr_map[int(self.y / 32) + 1][1])
-        # print(self.game.map.curr_map[1][int(self.x / 32)])
-        print((self.player_hitbox.centery + self.player_hitbox.height / 2)), int(self.x / 32)
-        if self.game.map.curr_map[int(self.y / 32)][int((self.player_hitbox.centerx - self.player_hitbox.width / 2) / 32)] == -1: # 1 0
-            if keys[pygame.K_a]:
-                self.prev_x = self.x
-                self.x -= PLAYER_SPEED
-        if self.game.map.curr_map[int((self.player_hitbox.centery - self.player_hitbox.height / 2) / 32)][int(self.x / 32)] == -1: # 0 1
-            if keys[pygame.K_w]:
-                self.prev_y = self.y
-                self.y -= PLAYER_SPEED
-        if self.game.map.curr_map[int(self.y / 32)][int((self.player_hitbox.centerx + self.player_hitbox.width / 2) / 32)] == -1: # 1 4
-            if keys[pygame.K_d]:
-                self.prev_x = self.x
-                self.x += PLAYER_SPEED
-        if self.game.map.curr_map[int((self.player_hitbox.centery + self.player_hitbox.height / 2) / 32)][int(self.x / 32)] == -1: # 3 1
-            if keys[pygame.K_s]:
-                self.prev_y = self.y
-                self.y += PLAYER_SPEED
-        else:
+        if not self.game.map.moving:
+            self.game.map.moving = True
             self.x = self.prev_x
             self.y = self.prev_y
+
+
+        else:
+            self.prev_x = self.x
+            self.prev_y = self.y
+            if keys[pygame.K_a]:
+                self.x -= PLAYER_SPEED
+            if keys[pygame.K_w]:
+                self.y -= PLAYER_SPEED
+            if keys[pygame.K_d]:
+                self.x += PLAYER_SPEED
+            if keys[pygame.K_s]:
+                self.y += PLAYER_SPEED
+
 
         if pygame.mouse.get_pressed()[0]:
             self.is_shooting = True
@@ -57,25 +53,25 @@ class Player:
 
     def borders_check(self):
         # borders check:
-        if self.y < 30:
+        if self.y < 0:
             self.y = 1000
             self.is_bottom = False
             self.game.map.get_map()
             self.game.bullets = []
 
         if self.y > 1000:
-            self.y = 30
+            self.y = 0
             self.is_bottom = True
             self.game.map.get_map()
             self.game.bullets = []
 
         if self.x > 1900:
-            self.x = 75
+            self.x = 0
             self.is_left = False
             self.game.map.get_map()
             self.game.bullets = []
 
-        if self.x < 75:
+        if self.x < 0:
             self.x = 1900
             self.is_left = True
             self.game.map.get_map()
@@ -102,8 +98,8 @@ class Player:
 
         if pygame.mouse.get_pressed()[0]:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            delta_x = mouse_x - self.x
-            delta_y = mouse_y - self.y
+            delta_x = mouse_x - self.x - 150
+            delta_y = mouse_y - self.y - 65
             self.angle = math.atan2(delta_y, delta_x)
             self.angle %= math.tau
             self.shoot()

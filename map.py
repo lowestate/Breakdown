@@ -165,6 +165,8 @@ class Map:
 
         self.get_map()
 
+        self.moving = True
+
     def get_map(self):
         if self.player.is_bottom:
             if self.player.is_left:
@@ -196,3 +198,5 @@ class Map:
                     tile = tmx_data.get_tile_image_by_gid(gid)
                     if tile:
                         self.game.screen.blit(tile, (x * tmx_data.tilewidth, y * tmx_data.tileheight))
+                        if pygame.Rect(x * tmx_data.tilewidth, y * tmx_data.tileheight, tmx_data.tilewidth, tmx_data.tileheight).colliderect(self.player.player_hitbox):
+                            self.moving = False
