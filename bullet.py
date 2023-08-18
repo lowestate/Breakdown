@@ -15,7 +15,6 @@ class Bullet:
 
         self.start = time.time()
 
-
     def update(self):
         dx = self.speed * math.cos(self.angle) * self.game.delta_time
         dy = self.speed * math.sin(self.angle) * self.game.delta_time
