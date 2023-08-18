@@ -89,7 +89,7 @@ class Player:
     def draw(self):
         self.game.screen.blit(self.player_sprite, self.player_hitbox.topleft)
         #self.game.screen.blit(self.player_sprite, (self.x, self.y))
-        #self.game.screen.blit(self.player_hitbox,(self.x, self.y))
+        pygame.draw.rect(self.game.screen, 'green', self.player_hitbox, 2)
 
     def update(self):
         self.borders_check()
