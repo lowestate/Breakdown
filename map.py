@@ -152,10 +152,10 @@ class Map:
         self.game = game
         self.player = player
 
-        self.bg_bottom_left = pygame.image.load('graphics/bottom left.png')
-        self.bg_bottom_right = pygame.image.load('graphics/bottom right.png')
-        self.bg_top_left = pygame.image.load('graphics/top left.png')
-        self.bg_top_right = pygame.image.load('graphics/top right.png')
+        self.bg_bottom_left = pygame.image.load('graphics/bg/bottom left.png')
+        self.bg_bottom_right = pygame.image.load('graphics/bg/bottom right.png')
+        self.bg_top_left = pygame.image.load('graphics/bg/top left.png')
+        self.bg_top_right = pygame.image.load('graphics/bg/top right.png')
 
         self.curr_map = []
         self.curr_bg = self.bg_bottom_left
@@ -169,23 +169,23 @@ class Map:
         if self.player.is_bottom:
             if self.player.is_left:
                 self.game.screen.blit(self.bg_bottom_left, self.bg_bottom_left.get_rect())
-                tmx_file = "graphics/bottom-left.tmx"
+                tmx_file = "graphics/bg/bottom-left.tmx"
                 self.curr_map = map_bl
                 self.curr_bg = self.bg_bottom_left
             else:
                 self.game.screen.blit(self.bg_bottom_right, self.bg_bottom_right.get_rect())
-                tmx_file = "graphics/bottom-right.tmx"
+                tmx_file = "graphics/bg/bottom-right.tmx"
                 self.curr_map = map_br
                 self.curr_bg = self.bg_bottom_right
         else:
             if self.player.is_left:
                 self.game.screen.blit(self.bg_top_left, self.bg_top_left.get_rect())
-                tmx_file = "graphics/top-left.tmx"
+                tmx_file = "graphics/bg/top-left.tmx"
                 self.curr_map = map_tl
                 self.curr_bg = self.bg_top_left
             else:
                 self.game.screen.blit(self.bg_top_right, self.bg_top_right.get_rect())
-                tmx_file = "graphics/top-right.tmx"
+                tmx_file = "graphics/bg/top-right.tmx"
                 self.curr_map = map_tr
                 self.curr_bg = self.bg_top_right
 

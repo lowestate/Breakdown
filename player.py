@@ -9,6 +9,10 @@ class Player:
 
         self.x = PLAYER_X
         self.y = PLAYER_Y
+
+        self.player_sprite = pygame.image.load('graphics/player/player_gray_150x90.png')
+        self.player_hitbox = self.player_sprite.get_rect(topleft=(self.x, self.y))
+
         self.prev_x = self.x
         self.prev_y = self.y
 
@@ -23,17 +27,22 @@ class Player:
 
     def move(self):
         keys = pygame.key.get_pressed()
-
-        if self.game.map.curr_map[int(self.y / 32)][int(self.x / 32)] == -1:
+        # print(self.game.map.curr_map[int(self.y / 32) + 1][1])
+        # print(self.game.map.curr_map[1][int(self.x / 32)])
+        print((self.player_hitbox.centery + self.player_hitbox.height / 2)), int(self.x / 32)
+        if self.game.map.curr_map[int(self.y / 32)][int((self.player_hitbox.centerx - self.player_hitbox.width / 2) / 32)] == -1: # 1 0
             if keys[pygame.K_a]:
                 self.prev_x = self.x
                 self.x -= PLAYER_SPEED
+        if self.game.map.curr_map[int((self.player_hitbox.centery - self.player_hitbox.height / 2) / 32)][int(self.x / 32)] == -1: # 0 1
             if keys[pygame.K_w]:
                 self.prev_y = self.y
                 self.y -= PLAYER_SPEED
+        if self.game.map.curr_map[int(self.y / 32)][int((self.player_hitbox.centerx + self.player_hitbox.width / 2) / 32)] == -1: # 1 4
             if keys[pygame.K_d]:
                 self.prev_x = self.x
                 self.x += PLAYER_SPEED
+        if self.game.map.curr_map[int((self.player_hitbox.centery + self.player_hitbox.height / 2) / 32)][int(self.x / 32)] == -1: # 3 1
             if keys[pygame.K_s]:
                 self.prev_y = self.y
                 self.y += PLAYER_SPEED
@@ -48,43 +57,48 @@ class Player:
 
     def borders_check(self):
         # borders check:
-        if self.y < 0:
-            self.y = 1070
+        if self.y < 30:
+            self.y = 1000
             self.is_bottom = False
             self.game.map.get_map()
             self.game.bullets = []
 
-        if self.y > 1070:
-            self.y = 0
+        if self.y > 1000:
+            self.y = 30
             self.is_bottom = True
             self.game.map.get_map()
             self.game.bullets = []
 
-        if self.x > 1910:
-            self.x = 0
+        if self.x > 1900:
+            self.x = 75
             self.is_left = False
             self.game.map.get_map()
             self.game.bullets = []
 
-        if self.x < 0:
-            self.x = 1910
+        if self.x < 75:
+            self.x = 1900
             self.is_left = True
             self.game.map.get_map()
             self.game.bullets = []
 
     def shoot(self):
         if time.time() - self.start > BULLET_CD:
-            bullet = Bullet(self.game, self.x, self.y, self.angle)
+            bullet = Bullet(self.game, self.x + 150, self.y + 65, self.angle)
             self.game.bullets.append(bullet)
             self.start = time.time()
 
     def draw(self):
 
-        pygame.draw.circle(self.game.screen, 'green', (self.x, self.y), 15)
+        #pygame.draw.circle(self.game.screen, 'green', (self.x, self.y), 15)
+        self.game.screen.blit(self.player_sprite, (self.x, self.y))
+        pygame.draw.rect(self.game.screen, 'green', (self.x, self.y, 150, 90), 3)
 
     def update(self):
         self.borders_check()
         self.move()
+
+        self.player_hitbox.x = self.x
+        self.player_hitbox.y = self.y
 
         if pygame.mouse.get_pressed()[0]:
             mouse_x, mouse_y = pygame.mouse.get_pos()

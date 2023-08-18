@@ -31,7 +31,6 @@ class Bullet:
             self.game.bullets.remove(self)
         #print(map_x, map_y)
         if self.game.map.curr_map[map_y][map_x] != -1:
-            print(map_y, map_x)
             return True
         return False
 

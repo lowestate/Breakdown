@@ -5,6 +5,7 @@ import sys
 from bullet import *
 from player import *
 from map import *
+from enemy import *
 from consts import *
 
 class Game():
@@ -22,6 +23,7 @@ class Game():
     def new_game(self):
         self.player = Player(self)
         self.map = Map(self, self.player)
+        self.enemy = Enemy(self)
 
     def draw(self):
 
